@@ -430,7 +430,21 @@ api/
 
 如有问题或建议，欢迎关注公众号 **小凡平凡** 联系作者。
 
+## 参与贡献
+
+欢迎提交 Pull Request 或 Issue！
+
+1. Fork 本仓库
+2. 创建功能分支：`git checkout -b feature/your-feature`
+3. 提交修改：`git commit -m "feat: 描述你的改动"`
+4. 推送分支：`git push origin feature/your-feature`
+5. 在 GitHub 上发起 Pull Request
+
+如有问题或建议，欢迎关注公众号 **小凡平凡** 联系作者。
+
+---
+
 ## License
 
-MIT © 2026 FanBaaS
+MIT © 2026 FanBaaS · 由 **歪歪** 开发 · 公众号：**小凡平凡**
 
