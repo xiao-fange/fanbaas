@@ -56,8 +56,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/novabaas.git
-cd novabaas/api
+git clone [https://github.com/xiao-fange/fanbaas.git]
+cd fanbaas/api
 ```
 
 ### 2. 安装依赖
