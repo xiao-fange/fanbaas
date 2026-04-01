@@ -1,0 +1,23 @@
+﻿{
+  "name": "FanBaaS",
+  "version": "1.0.0",
+  "description": "FanBaaS — 开源后端即服务平台，由歪歪开发，公众号：小凡平凡",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "minio": "^8.0.7",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.4",
+    "pg": "^8.20.0",
+    "socket.io": "^4.8.3",
+    "winston": "^3.19.0"
+  }
+}
