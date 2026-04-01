@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FanBaaS - Demo — 下一代后端即服务平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020b18;--bg2:#041428;--card:#061d35;--cyan:#00d4ff;--blue:#0066ff;--purple:#7b2fff;--green:#00ff88;--red:#ff2244;--text:#e0f0ff;--muted:#3a6080;--border:#0a3a5c;--glow:0 0 30px rgba(0,212,255,0.3);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,0.012) 2px,rgba(0,212,255,0.012) 4px);pointer-events:none;z-index:0;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:64px;background:rgba(2,11,24,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--cyan);text-shadow:0 0 20px rgba(0,212,255,0.6);letter-spacing:3px;}
+.nav-logo span{color:var(--text);font-weight:400;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:600;font-size:13px;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-actions{display:flex;gap:12px;align-items:center;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:3px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;}
+.btn-outline{background:transparent;border:1px solid var(--cyan);color:var(--cyan);}
+.btn-outline:hover{background:rgba(0,212,255,0.1);box-shadow:var(--glow);}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;box-shadow:0 0 20px rgba(0,102,255,0.4);}
+.btn-primary:hover{box-shadow:0 0 40px rgba(0,212,255,0.5);transform:translateY(-1px);}
+.btn-console{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 0 20px rgba(123,47,255,0.4);}
+.btn-console:hover{box-shadow:0 0 40px rgba(123,47,255,0.6);transform:translateY(-1px);}
+.btn-sm{padding:7px 16px;font-size:11px;}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 60px;position:relative;background:radial-gradient(ellipse at 50% 40%,rgba(0,102,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(123,47,255,0.06) 0%,transparent 50%);}
+.hero-badge{display:inline-block;padding:4px 16px;border:1px solid rgba(0,212,255,0.4);border-radius:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:2px;margin-bottom:24px;background:rgba(0,212,255,0.05);}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.1;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,var(--cyan) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-size:18px;color:#7aa8cc;max-width:600px;line-height:1.7;margin-bottom:40px;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.hero-stats{display:flex;gap:48px;margin-top:80px;flex-wrap:wrap;justify-content:center;}
+.stat{text-align:center;}
+.stat-num{font-family:'Orbitron',monospace;font-size:32px;font-weight:700;color:var(--cyan);text-shadow:0 0 20px rgba(0,212,255,0.5);}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+
+.section{padding:100px 60px;position:relative;z-index:1;}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-family:'Orbitron',monospace;font-size:clamp(24px,3vw,40px);font-weight:700;margin-bottom:16px;color:var(--text);}
+.section-sub{font-size:16px;color:#7aa8cc;max-width:560px;line-height:1.7;margin-bottom:60px;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--cyan),var(--blue),transparent);}
+.feature-card:hover{border-color:rgba(0,212,255,0.4);box-shadow:var(--glow);transform:translateY(-4px);}
+.feature-icon{font-size:32px;margin-bottom:16px;}
+.feature-card h3{font-family:'Orbitron',monospace;font-size:14px;letter-spacing:2px;color:var(--cyan);margin-bottom:10px;}
+.feature-card p{font-size:14px;color:#7aa8cc;line-height:1.7;}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;position:relative;}
+.steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);z-index:0;}
+.step{text-align:center;padding:20px;position:relative;z-index:1;}
+.step-num{width:64px;height:64px;border-radius:50%;border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:var(--cyan);background:var(--bg);box-shadow:var(--glow);}
+.step h3{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:2px;color:var(--text);margin-bottom:8px;}
+.step p{font-size:13px;color:var(--muted);}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:960px;margin:0 auto;}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:36px;text-align:center;transition:all 0.3s;}
+.price-card.featured{border-color:var(--cyan);box-shadow:var(--glow);position:relative;}
+.price-card.featured::before{content:'推荐';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--cyan);color:var(--bg);font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;padding:3px 14px;border-radius:10px;}
+.price-name{font-family:'Orbitron',monospace;font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;}
+.price-amount{font-family:'Orbitron',monospace;font-size:48px;font-weight:700;color:var(--cyan);line-height:1;}
+.price-amount span{font-size:16px;color:var(--muted);}
+.price-features{list-style:none;margin:24px 0;text-align:left;}
+.price-features li{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:#7aa8cc;display:flex;align-items:center;gap:8px;}
+.price-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+
+.cta{text-align:center;padding:100px 20px;background:radial-gradient(ellipse at 50% 50%,rgba(0,102,255,0.1) 0%,transparent 60%);}
+.cta h2{font-family:'Orbitron',monospace;font-size:clamp(24px,4vw,48px);font-weight:700;margin-bottom:16px;color:var(--text);}
+.cta p{font-size:16px;color:#7aa8cc;margin-bottom:40px;}
+
+footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-logo{font-family:'Orbitron',monospace;font-size:14px;color:var(--cyan);letter-spacing:2px;}
+footer p{font-size:12px;color:var(--muted);}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,11,24,0.88);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border:1px solid var(--cyan);border-top:3px solid var(--cyan);border-radius:6px;padding:36px;width:420px;max-width:95vw;position:relative;box-shadow:var(--glow),0 20px 60px rgba(0,0,0,0.8);}
+.modal-box h2{font-family:'Orbitron',monospace;font-size:16px;letter-spacing:3px;color:var(--cyan);margin-bottom:24px;text-shadow:0 0 20px rgba(0,212,255,0.5);}
+.modal-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border);}
+.modal-tab{padding:10px 20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;margin-bottom:-1px;}
+.modal-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.modal-form{display:none;}
+.modal-form.active{display:block;}
+.form-field{margin-bottom:16px;}
+.form-field label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.form-field input{width:100%;padding:11px 14px;background:rgba(2,11,24,0.8);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;transition:all 0.2s;}
+.form-field input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,212,255,0.15);}
+.form-field input::placeholder{color:var(--muted);}
+.form-error{color:var(--red);font-size:12px;font-family:'Share Tech Mono',monospace;margin-bottom:12px;display:none;padding:8px 12px;background:rgba(255,34,68,0.08);border:1px solid rgba(255,34,68,0.3);border-radius:3px;}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;padding:4px;}
+.modal-close:hover{color:var(--text);}
+
+#nav-logged-in{display:none;gap:12px;align-items:center;}
+#nav-username{font-family:'Share Tech Mono',monospace;font-size:12px;color:#7aa8cc;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .section{padding:60px 20px;}
+  .hero{padding:80px 20px 40px;}
+  footer{padding:30px 20px;flex-direction:column;text-align:center;}
+  .steps::before{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Flow<span>Base</span></div>
+  <div class="nav-links">
+    <a href="#features">功能</a>
+    <a href="#how">快速开始</a>
+    <a href="#pricing">定价</a>
+    <a href="https://ai.mmuc.cn/console" target="_blank">控制台</a>
+  </div>
+  <div class="nav-actions">
+    <div id="nav-guest-area">
+      <button class="btn btn-outline btn-sm" onclick="window.open('https://ai.mmuc.cn','_blank')">登录</button>
+      <button class="btn btn-primary btn-sm" onclick="window.open('https://ai.mmuc.cn','_blank')">免费注册</button>
+    </div>
+    <div id="nav-logged-in">
+      <span id="nav-username"></span>
+      <a href="https://ai.mmuc.cn/console" target="_blank" class="btn btn-console btn-sm">进入控制台</a>
+      <button class="btn btn-outline btn-sm" onclick="doLogout()">退出</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Backend as a Service · 下一代云后端平台</div>
+  <h1>构建更快<br>扩展更强</h1>
+  <p>FanBaaS 提供完整的后端基础设施——数据库、实时数据、文件存储、云函数、用户认证，让你专注于产品本身。</p>
+  <div class="hero-actions" id="hero-guest-actions">
+    <button class="btn btn-primary" onclick="window.open('https://ai.mmuc.cn','_blank')">免费开始使用</button>
+    <a href="#features" class="btn btn-outline">了解功能</a>
+  </div>
+  <div id="hero-user-actions" style="display:none;">
+    <a href="https://ai.mmuc.cn/console" target="_blank" class="btn btn-console" style="font-size:15px;padding:14px 36px;">进入控制台</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">7+</div><div class="stat-label">核心服务</div></div>
+    <div class="stat"><div class="stat-num">99.9%</div><div class="stat-label">可用性</div></div>
+    <div class="stat"><div class="stat-num">&lt;10ms</div><div class="stat-label">响应延迟</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">扩展能力</div></div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">核心功能</div>
+    <div class="section-title">一个平台，全部搞定</div>
+    <div class="section-sub">从用户认证到实时数据库，FanBaaS 提供构建现代应用所需的一切后端能力。</div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔐</div><h3>用户认证</h3><p>内置注册、登录、JWT 令牌管理、角色权限控制。几行代码完成完整的用户系统。</p></div>
+      <div class="feature-card"><div class="feature-icon">🗄</div><h3>PostgreSQL 数据库</h3><p>全托管 PostgreSQL，可视化建表、SQL 查询、表结构管理，无需运维。</p></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>实时数据库</h3><p>基于 WebSocket 的实时数据同步，数据变更即时推送到所有连接的客户端。</p></div>
+      <div class="feature-card"><div class="feature-icon">📦</div><h3>文件存储</h3><p>S3 兼容的对象存储，支持多存储桶管理、文件上传下载，内置 CDN 加速。</p></div>
+      <div class="feature-card"><div class="feature-icon">λ</div><h3>云函数</h3><p>无服务器函数执行，支持定时触发和事件触发，按需运行业务逻辑。</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>分析监控</h3><p>实时 API 调用统计、响应时间趋势、错误率分析，全方位掌握服务状态。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how" style="background:rgba(4,20,40,0.5);">
+  <div style="max-width:1000px;margin:0 auto;text-align:center;">
+    <div class="section-label">快速开始</div>
+    <div class="section-title">三步接入，分钟级上线</div>
+    <div class="section-sub" style="margin:0 auto 60px;">无需复杂配置，注册即用。</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>注册账号</h3><p>免费注册，立即获得完整后端环境</p></div>
+      <div class="step"><div class="step-num">02</div><h3>创建应用</h3><p>在控制台创建应用，获取 API Key</p></div>
+      <div class="step"><div class="step-num">03</div><h3>接入代码</h3><p>复制自动生成的代码示例，粘贴即用</p></div>
+    </div>
+    <div style="margin-top:60px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:28px;text-align:left;font-family:'Share Tech Mono',monospace;font-size:13px;color:#7aa8cc;line-height:2;">
+      <span style="color:var(--muted);">// JavaScript 接入示例</span><br>
+      <span style="color:var(--cyan);">const</span> BASE_URL = <span style="color:#00ff88;">'https://your-domain.com'</span>;<br>
+      <span style="color:var(--cyan);">const</span> API_KEY  = <span style="color:#00ff88;">'bk_xxxxxxxxxxxxxxxx'</span>;<br><br>
+      <span style="color:var(--muted);">// 用户注册</span><br>
+      <span style="color:var(--cyan);">await</span> register(<span style="color:#00ff88;">'张三'</span>, <span style="color:#00ff88;">'user@example.com'</span>, <span style="color:#00ff88;">'password'</span>);<br><br>
+      <span style="color:var(--muted);">// 查询数据</span><br>
+      <span style="color:var(--cyan);">const</span> rows = <span style="color:var(--cyan);">await</span> query(<span style="color:#00ff88;">'SELECT * FROM posts LIMIT 10'</span>);
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div style="max-width:1000px;margin:0 auto;text-align:center;">
+    <div class="section-label">定价方案</div>
+    <div class="section-title">简单透明的定价</div>
+    <div class="section-sub" style="margin:0 auto 60px;">从个人项目到企业级应用，总有适合你的方案。</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">FREE</div>
+        <div class="price-amount">¥0<span>/月</span></div>
+        <ul class="price-features">
+          <li>500MB 数据库存储</li><li>1GB 文件存储</li><li>10,000 次 API 调用/月</li><li>3 个云函数</li><li>社区支持</li>
+        </ul>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="window.open('https://ai.mmuc.cn','_blank')">免费开始</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-name">PRO</div>
+        <div class="price-amount">¥99<span>/月</span></div>
+        <ul class="price-features">
+          <li>10GB 数据库存储</li><li>50GB 文件存储</li><li>1,000,000 次 API 调用/月</li><li>无限云函数</li><li>实时数据库</li><li>优先技术支持</li>
+        </ul>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="window.open('https://ai.mmuc.cn','_blank')">立即升级</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">ENTERPRISE</div>
+        <div class="price-amount" style="font-size:32px;">定制</div>
+        <ul class="price-features">
+          <li>无限存储</li><li>无限 API 调用</li><li>私有化部署</li><li>SLA 保障</li><li>专属技术支持</li>
+        </ul>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;">联系我们</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>准备好了吗？</h2>
+  <p>立即注册，免费体验完整的 BaaS 平台能力。</p>
+  <div id="cta-guest"><button class="btn btn-primary" style="font-size:15px;padding:14px 40px;" onclick="window.open('https://ai.mmuc.cn','_blank')">免费注册</button></div>
+  <div id="cta-user" style="display:none;"><a href="https://ai.mmuc.cn/console" target="_blank" class="btn btn-console" style="font-size:15px;padding:14px 40px;">进入控制台</a></div>
+</section>
+
+<footer>
+  <div class="footer-logo">FanBaaS</div>
+  <p>© 2026 FanBaaS · 由 <strong style="color:var(--cyan);">歪歪</strong> 开发 · 公众号：<strong style="color:var(--cyan);">小凡平凡</strong></p>
+  <div style="display:flex;gap:20px;">
+    <a href="#features" style="color:var(--muted);font-size:12px;text-decoration:none;">功能</a>
+    <a href="#pricing" style="color:var(--muted);font-size:12px;text-decoration:none;">定价</a>
+    <a href="https://ai.mmuc.cn/console" target="_blank" style="color:var(--muted);font-size:12px;text-decoration:none;">控制台</a>
+  </div>
+</footer>
+
+
+<script>
+// FanBaaS Demo Page - Powered by GitHub Pages
+// Real service: https://ai.mmuc.cn
+
+function setLoggedIn(){} function clearAuth() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+}
+
+function doLogout(){ window.open('https://ai.mmuc.cn','_blank'); } function openModal(){ window.open('https://ai.mmuc.cn','_blank'); } function closeModal() {
+  document.getElementById('auth-modal').classList.remove('open');
+}
+document.getElementById('auth-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+function switchTab(tab) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.modal-form').forEach(f => f.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('form-' + tab).classList.add('active');
+}
+
+async function doLogin(){} function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const errDiv = document.getElementById('register-error');
+  errDiv.style.display = 'none';
+  if (!name || !email || !password) { errDiv.textContent = '请填写所有字段'; errDiv.style.display = 'block'; return; }
+  if (password.length < 8) { errDiv.textContent = '密码长度不能少于8位'; errDiv.style.display = 'block'; return; }
+  try {
+    const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, password }) });
+    const d = await r.json();
+    if (d.user) {
+      const lr = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const ld = await lr.json();
+      if (ld.token) { localStorage.setItem('token', ld.token); closeModal(); setLoggedIn(ld.user, true); }
+    } else { errDiv.textContent = d.error || '注册失败'; errDiv.style.display = 'block'; }
+  } catch { errDiv.textContent = '网络错误，请稍后重试'; errDiv.style.display = 'block'; }
+}
+
+async function doForgotPassword() {
+  const email = document.getElementById('forgot-email').value.trim();
+  const errDiv = document.getElementById('forgot-error');
+  const sucDiv = document.getElementById('forgot-success');
+  errDiv.style.display = 'none'; sucDiv.style.display = 'none';
+  if (!email) { errDiv.textContent = '请填写邮箱'; errDiv.style.display = 'block'; return; }
+  try {
+    const r = await fetch('/api/auth/forgot-password', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const d = await r.json();
+    if (d.error) { errDiv.textContent = d.error; errDiv.style.display = 'block'; return; }
+    let msg = d.message;
+    if (d.dev_reset_token) msg += `\n\n[开发模式] 重置 Token: ${d.dev_reset_token}`;
+    sucDiv.textContent = msg; sucDiv.style.display = 'block';
+  } catch { errDiv.textContent = '网络错误'; errDiv.style.display = 'block'; }
+}
+
+// 页面加载时检查登录状态
+// Demo mode - no auth needed
+</script>
+</body>
+</html>

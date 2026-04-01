@@ -2,9 +2,12 @@
 
 [中文](./README.md) | English
 
-> An open-source Backend as a Service (BaaS) platform built with Node.js, providing a complete backend infrastructure including database, real-time data, file storage, cloud functions, user authentication, and website deployment.
+> An open-source Backend as a Service (BaaS) platform built with Node.js.
 >
 > Developed by **YaiYai** · WeChat Public Account: **XiaoFanPingFan**
+
+🌐 **Demo Page**: [https://xiao-fange.github.io/fanbaas/](https://xiao-fange.github.io/fanbaas/)
+🚀 **Live Service**: [https://ai.mmuc.cn](https://ai.mmuc.cn)
 
 ![Node.js](https://img.shields.io/badge/Node.js-22+-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)

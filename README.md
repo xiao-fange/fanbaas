@@ -6,6 +6,9 @@
 >
 > 由 **歪歪** 开发 · 公众号：**小凡平凡**
 
+🌐 **展示主页**：[https://xiao-fange.github.io/fanbaas/](https://xiao-fange.github.io/fanbaas/)
+🚀 **在线体验**：[https://ai.mmuc.cn](https://ai.mmuc.cn)
+
 ![Node.js](https://img.shields.io/badge/Node.js-22+-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
 ![MinIO](https://img.shields.io/badge/MinIO-Object_Storage-red)
@@ -58,8 +61,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/xiao-fange/fanbaas.git
-cd fanbaas/api
+git clone https://github.com/your-username/novabaas.git
+cd novabaas/api
 ```
 
 ### 2. 安装依赖
@@ -420,17 +423,6 @@ api/
 - [ ] 设置 `APP_URL` 为真实域名
 
 ---
-## 参与贡献
-
-欢迎提交 Pull Request 或 Issue！
-
-1. Fork 本仓库
-2. 创建功能分支：`git checkout -b feature/your-feature`
-3. 提交修改：`git commit -m "feat: 描述你的改动"`
-4. 推送分支：`git push origin feature/your-feature`
-5. 在 GitHub 上发起 Pull Request
-
-如有问题或建议，欢迎关注公众号 **小凡平凡** 联系作者。
 
 ## 参与贡献
 
